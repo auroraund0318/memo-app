@@ -1,8 +1,7 @@
 import { messages } from './i18n.js';
 
-let currentLang = localStorage.getItem('lang') || (
-  navigator.language.startsWith('ja') ? 'ja' : 'en'
-);
+// 現在の言語を localStorage またはブラウザ設定から決定
+let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('ja') ? 'ja' : 'en');
 let t = messages[currentLang];
 
 const titleInput = document.getElementById('title');
@@ -12,7 +11,7 @@ const downloadButton = document.getElementById('download');
 const toggleDarkButton = document.getElementById('toggle-dark');
 const memoList = document.getElementById('memoList');
 
-// 🆕 言語切り替えボタン
+// 言語切替ボタンのイベントリスナー
 document.getElementById('lang-en').addEventListener('click', () => {
   setLanguage('en');
 });
@@ -63,7 +62,6 @@ function renderMemoList() {
       titleInput.value = title;
       textarea.value = memos[title];
     });
-
     const delBtn = document.createElement('button');
     delBtn.textContent = '❌';
     delBtn.style.marginLeft = '5px';
@@ -79,7 +77,6 @@ function renderMemoList() {
         }
       }
     });
-
     li.appendChild(span);
     li.appendChild(delBtn);
     memoList.appendChild(li);
@@ -127,9 +124,16 @@ downloadButton.addEventListener('click', () => {
 
 toggleDarkButton.addEventListener('click', () => {
   document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('darkMode', isDark);
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+  // 過去に設定されたダークモード状態を適用
+  const storedDarkMode = localStorage.getItem('darkMode');
+  if (storedDarkMode === 'true') {
+    document.body.classList.add('dark');
+  }
   applyTranslations();
   renderMemoList();
 });
