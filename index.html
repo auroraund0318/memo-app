@@ -10,8 +10,11 @@
         background-color: #fff;
         color: #000;
         font-family: sans-serif;
+        padding: 20px;
       }
-      input, textarea, button {
+      input,
+      textarea,
+      button {
         font-size: 16px;
         margin: 4px;
         padding: 4px;
@@ -29,17 +32,29 @@
         background-color: #444;
         color: #eee;
       }
+      #lang-switch {
+        margin-bottom: 12px;
+      }
     </style>
   </head>
   <body>
-    <h1 id="title-text"></h1>
+    <h1 id="title-text">📚 Memo App</h1>
+
+    <!-- 言語切り替えボタン -->
+    <div id="lang-switch">
+      <button id="lang-en">🇺🇸 English</button>
+      <button id="lang-ja">🇯🇵 日本語</button>
+    </div>
+
     <input id="title" type="text" />
-    <button id="save"></button>
-    <button id="download"></button>
-    <button id="toggle-dark"></button>
+    <button id="save">Save</button>
+    <button id="download">Download as .md</button>
+    <button id="toggle-dark">Toggle Dark Mode</button>
     <br /><br />
+
     <textarea id="memo" rows="15" cols="60"></textarea>
-    <h2 id="list-label"></h2>
+
+    <h2 id="list-label">📝 Saved Memos</h2>
     <ul id="memoList"></ul>
   </body>
 </html>

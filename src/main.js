@@ -1,13 +1,41 @@
 import { messages } from './i18n.js';
 
+let currentLang = localStorage.getItem('lang') || (
+  navigator.language.startsWith('ja') ? 'ja' : 'en'
+);
+let t = messages[currentLang];
+
 const titleInput = document.getElementById('title');
 const textarea = document.getElementById('memo');
 const saveButton = document.getElementById('save');
 const downloadButton = document.getElementById('download');
 const toggleDarkButton = document.getElementById('toggle-dark');
 const memoList = document.getElementById('memoList');
-const userLang = navigator.language.startsWith('ja') ? 'ja' : 'en';
-const t = messages[userLang];
+
+// 🆕 言語切り替えボタン
+document.getElementById('lang-en').addEventListener('click', () => {
+  setLanguage('en');
+});
+document.getElementById('lang-ja').addEventListener('click', () => {
+  setLanguage('ja');
+});
+
+function setLanguage(lang) {
+  currentLang = lang;
+  t = messages[currentLang];
+  localStorage.setItem('lang', lang);
+  applyTranslations();
+}
+
+function applyTranslations() {
+  document.getElementById('title-text').textContent = t.appTitle;
+  saveButton.textContent = t.save;
+  downloadButton.textContent = t.download;
+  toggleDarkButton.textContent = t.darkMode;
+  titleInput.placeholder = t.titlePlaceholder;
+  textarea.placeholder = t.bodyPlaceholder;
+  document.getElementById('list-label').textContent = t.savedList;
+}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -25,7 +53,6 @@ function getAllMemos() {
 function renderMemoList() {
   const memos = getAllMemos();
   memoList.innerHTML = '';
-
   Object.keys(memos).forEach((title) => {
     const li = document.createElement('li');
     const span = document.createElement('span');
@@ -63,7 +90,6 @@ function saveMemo() {
   const title = titleInput.value.trim();
   const body = textarea.value;
   if (!title) return;
-
   const memos = getAllMemos();
   memos[title] = body;
   localStorage.setItem('memos', JSON.stringify(memos));
@@ -104,13 +130,6 @@ toggleDarkButton.addEventListener('click', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('title-text').textContent = t.appTitle;
-  document.getElementById('save').textContent = t.save;
-  document.getElementById('download').textContent = t.download;
-  document.getElementById('toggle-dark').textContent = t.darkMode;
-  document.getElementById('title').placeholder = t.titlePlaceholder;
-  document.getElementById('memo').placeholder = t.bodyPlaceholder;
-  document.getElementById('list-label').textContent = t.savedList;
-
+  applyTranslations();
   renderMemoList();
 });
