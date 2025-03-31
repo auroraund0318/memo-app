@@ -2,12 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- viewport 設定でレスポンシブ対応 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Memo App</title>
     <link rel="manifest" href="/manifest.json" />
-    <!-- Google Fonts から Inter を読み込み -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter を読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <script type="module" src="/src/main.js"></script>
     <style>
       body {
@@ -15,6 +20,7 @@
         color: #000;
         font-family: 'Inter', sans-serif;
         padding: 20px;
+        transition: background-color 0.3s, color 0.3s;
       }
       input,
       textarea,
@@ -24,6 +30,7 @@
         margin: 4px;
         padding: 4px;
       }
+      /* ダークモード用 */
       body.dark {
         background-color: #222;
         color: #eee;
@@ -37,28 +44,42 @@
         background-color: #444;
         color: #eee;
       }
+      /* 言語切替ボタン周り */
       #lang-switch {
         margin-bottom: 12px;
+      }
+      /* スマホ向けレスポンシブ設定 */
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        input,
+        textarea,
+        button {
+          font-size: 14px;
+          margin: 2px;
+          padding: 6px;
+        }
+        textarea {
+          width: 100%;
+          box-sizing: border-box;
+        }
       }
     </style>
   </head>
   <body>
     <h1 id="title-text">📚 Memo App</h1>
-
     <!-- 言語切り替えボタン -->
     <div id="lang-switch">
       <button id="lang-en">🇺🇸 English</button>
       <button id="lang-ja">🇯🇵 日本語</button>
     </div>
-
-    <input id="title" type="text" />
+    <input id="title" type="text" placeholder="Enter memo title" />
     <button id="save">Save</button>
     <button id="download">Download as .md</button>
     <button id="toggle-dark">Toggle Dark Mode</button>
     <br /><br />
-
-    <textarea id="memo" rows="15" cols="60"></textarea>
-
+    <textarea id="memo" rows="15" cols="60" placeholder="Write your memo here..."></textarea>
     <h2 id="list-label">📝 Saved Memos</h2>
     <ul id="memoList"></ul>
   </body>
