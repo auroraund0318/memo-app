@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Memo App</title>
-    <!-- manifest.json のリンク -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
     <script type="module" src="/src/main.js"></script>
     <style>
-      /* 通常モードのスタイル */
       body {
         background-color: #fff;
         color: #000;
@@ -18,7 +16,6 @@
         margin: 4px;
         padding: 4px;
       }
-      /* ダークモード用のスタイル */
       body.dark {
         background-color: #222;
         color: #eee;
@@ -35,14 +32,14 @@
     </style>
   </head>
   <body>
-    <h1>📚 複数メモアプリ</h1>
-    <input id="title" type="text" placeholder="メモのタイトル" />
-    <button id="save">保存</button>
-    <button id="download">.mdとしてダウンロード</button>
-    <button id="toggle-dark">ダークモード切替</button>
+    <h1 id="title-text"></h1>
+    <input id="title" type="text" />
+    <button id="save"></button>
+    <button id="download"></button>
+    <button id="toggle-dark"></button>
     <br /><br />
-    <textarea id="memo" rows="15" cols="60" placeholder="メモの本文を入力..."></textarea>
-    <h2>📝 保存済みメモ一覧</h2>
+    <textarea id="memo" rows="15" cols="60"></textarea>
+    <h2 id="list-label"></h2>
     <ul id="memoList"></ul>
   </body>
 </html>
